@@ -35,6 +35,8 @@ public class FormularioActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.menu_formulario_ok) {
             Aluno aluno = helper.pegaAluno();
             Toast.makeText(FormularioActivity.this, "Aluno " + aluno.getNome() + " salvo!", Toast.LENGTH_SHORT).show();
+
+            //Salva no Banco
             finish();
         }
         return super.onOptionsItemSelected(item);
