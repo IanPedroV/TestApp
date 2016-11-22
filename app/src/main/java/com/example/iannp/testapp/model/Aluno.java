@@ -11,16 +11,8 @@ public class Aluno {
     private String endereco;
     private String telefone;
     private String email;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     private String site;
+    private double nota;
 
     public double getNota() {
         return nota;
@@ -30,12 +22,20 @@ public class Aluno {
         this.nota = nota;
     }
 
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
     }
 
     public String getNome() {
@@ -62,15 +62,16 @@ public class Aluno {
         this.telefone = telefone;
     }
 
-    public String getSite() {
-        return site;
+    public Long getId() {
+        return id;
     }
 
-    public void setSite(String site) {
-        this.site = site;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    private double nota;
-
-
+    @Override
+    public String toString()  {
+        return getId() + " - " + getNome();
+    }
 }

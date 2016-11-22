@@ -8,20 +8,27 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.iannp.testapp.DAO.AlunoDAO;
+import com.example.iannp.testapp.model.Aluno;
+
+import java.util.List;
+
 public class ListaAlunosActivity extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AlunoDAO dao = new AlunoDAO(this);
+
         setContentView(R.layout.activity_lista_alunos);
-        String[] alunos = {"Ian", "Felipe", "Ronaldo", "Pedro", "Ian", "Felipe", "Ronaldo", "Pedro", "Ian", "Felipe", "Ronaldo", "Pedro"};
+        List<Aluno> alunos = dao.buscaAlunos();
+        dao.close();
         ListView listaAlunos = (ListView) findViewById(R.id.lista_alunos);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, alunos);
+        ArrayAdapter<Aluno> adapter = new ArrayAdapter<Aluno>(this, android.R.layout.simple_list_item_1, alunos);
         listaAlunos.setAdapter(adapter);
 
         Button novoAluno = (Button) findViewById(R.id.lista_alunos_novo_aluno);
-
         novoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

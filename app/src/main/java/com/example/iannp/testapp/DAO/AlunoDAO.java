@@ -2,10 +2,14 @@ package com.example.iannp.testapp.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.iannp.testapp.model.Aluno;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by iannp on 21/11/2016.
@@ -13,12 +17,12 @@ import com.example.iannp.testapp.model.Aluno;
 
 public class AlunoDAO extends SQLiteOpenHelper {
     public AlunoDAO(Context context) {
-        super(context, "Agenda", null, 1);
+        super(context, "Agenda", null, 4);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTable = "CREATE TABLE Alunos (id INTEGER PRIMARY KEY, nome TEXT NOT NULL, endereço TEXT, telefone TEXT, site TEXT, nota REAL);";
+        String createTable = "CREATE TABLE Alunos (id INTEGER PRIMARY KEY, nome TEXT NOT NULL, endereco TEXT, telefone TEXT, email TEXT, site TEXT, nota REAL);";
         db.execSQL(createTable);
     }
 
@@ -38,9 +42,31 @@ public class AlunoDAO extends SQLiteOpenHelper {
         dados.put("email", aluno.getEmail());
         dados.put("site", aluno.getSite());
         dados.put("nota", aluno.getNota());
-
-
         db.insert("Alunos", null, dados);
+    }
+
+    public List<Aluno> buscaAlunos() {
+
+        String sql = "SELECT * FROM Alunos;";
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(sql, null);
+
+        List<Aluno> alunos = new ArrayList<Aluno>();
+        while (c.moveToNext()) {
+            Aluno aluno = new Aluno();
+            aluno.setId(c.getLong(c.getColumnIndex("id")));
+            aluno.setNome(c.getString(c.getColumnIndex("nome")));
+            aluno.setEndereco(c.getString(c.getColumnIndex("endereco")));
+            aluno.setTelefone(c.getString(c.getColumnIndex("telefone")));
+            aluno.setEmail(c.getString(c.getColumnIndex("email")));
+            aluno.setSite(c.getString(c.getColumnIndex("site")));
+            aluno.setNota(c.getDouble(c.getColumnIndex("nota")));
+            alunos.add(aluno);
+
+        }
+        c.close();
+
+        return alunos;
 
     }
 }
