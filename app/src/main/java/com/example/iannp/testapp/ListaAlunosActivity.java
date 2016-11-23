@@ -26,6 +26,18 @@ public class ListaAlunosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_alunos);
+        listaAlunos = (ListView) findViewById(R.id.lista_alunos);
+
+        listaAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> list, View item, int position, long id) {
+                Aluno aluno = (Aluno)listaAlunos.getItemAtPosition(position);
+                Intent vaiProFormEdit = new Intent(ListaAlunosActivity.this, FormularioActivity.class);
+                vaiProFormEdit.putExtra("aluno", aluno);
+                startActivity(vaiProFormEdit);
+
+            }
+        });
         Button novoAluno = (Button) findViewById(R.id.lista_alunos_novo_aluno);
         novoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +46,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 startActivity(vaiProForm);
             }
         });
-         listaAlunos = (ListView) findViewById(R.id.lista_alunos);
 
         registerForContextMenu(listaAlunos);
 

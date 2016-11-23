@@ -1,10 +1,12 @@
 package com.example.iannp.testapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by iannp on 21/11/2016.
  */
 
-public class Aluno {
+public class Aluno implements Serializable {
 
     private Long id;
     private String nome;
